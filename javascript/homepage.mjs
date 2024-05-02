@@ -18,42 +18,53 @@ export async function fetchProductsFromAPI() {
   }
 }*/
 
-// Import the function to fetch products from the API module
-import { fetchProductsFromAPI } from "./apiFunction.mjs";
+document.addEventListener("DOMContentLoaded", function () {
+  async function fetchProductsFromAPI() {
+    try {
+      const response = await fetch("https://api.noroff.dev/api/v1/rainy-days");
 
-// Function to display the products on the webpage
-async function displayProducts() {
-  try {
-    console.log("Attempting to fetch products...");
-    const products = await fetchProductsFromAPI();
-    console.log("Products fetched:", products);
-
-    // Ensure the DOM is fully loaded before attempting to access DOM elements
-    document.addEventListener("DOMContentLoaded", () => {
-      const productsContainer = document.getElementById("products");
-      if (!productsContainer) {
-        console.error('No element with ID "products" found.');
-        return;
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
       }
 
-      // Iterate over each product and create HTML elements to display them
-      products.forEach((product, index) => {
-        console.log(`Displaying product ${index}:`, product);
-        const productElement = document.createElement("div");
-        productElement.innerHTML = `
-          <h3>${product.name}</h3>
-          <img src="${product.img}" alt="Image of ${product.name}">
-          <p>ID: ${product.id}</p>
-          <p>Price: $${product.price}</p>
-          <p>${product.description}</p>
-        `;
-        productsContainer.appendChild(productElement);
-      });
-    });
-  } catch (error) {
-    console.error("Failed to display products:", error);
+      const data = await response.json();
+      console.log("API Data:", data); // Log the full data for inspection
+      displayProducts(data); // Call displayProducts to handle the data on the page
+      return data;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return {};
+    }
   }
-}
 
-// Call the function to display the products
-displayProducts();
+  // Function to display products on the website
+  function displayProducts(products) {
+    const section = document.getElementById("products");
+    section.innerHTML = ""; // Clear existing content
+    console.log("Products section found:", section); // Check if the section is correctly identified
+
+    // Loop through each product and create HTML for it
+    products.forEach((product) => {
+      const productDiv = document.createElement("div");
+      const productName = document.createElement("h2");
+      const productDescription = document.createElement("p");
+
+      productName.textContent = product.name; // Set the product name
+      productDescription.textContent = product.description; // Set the product description
+
+      productDiv.appendChild(productName); // Append the name to the div
+      productDiv.appendChild(productDescription); // Append the description to the div
+
+      section.appendChild(productDiv); // Append the div to the section
+    });
+  }
+
+  // Call the fetchProductsFromAPI function
+  fetchProductsFromAPI()
+    .then((data) => {
+      console.log("Final Data Loaded:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+});
