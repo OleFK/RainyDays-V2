@@ -16,55 +16,46 @@ export async function fetchProductsFromAPI() {
     console.error("Error fetching data:", error);
     return [];
   }
-}*/
+}
+*/
 
-document.addEventListener("DOMContentLoaded", function () {
-  async function fetchProductsFromAPI() {
-    try {
-      const response = await fetch("https://api.noroff.dev/api/v1/rainy-days");
+// homepage.mjs
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
+import { fetchProductsFromAPI } from "./apiFunction.mjs";
 
-      const data = await response.json();
-      console.log("API Data:", data); // Log the full data for inspection
-      displayProducts(data); // Call displayProducts to handle the data on the page
-      return data;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return {};
-    }
-  }
+async function displayProducts() {
+  try {
+    const products = await fetchProductsFromAPI();
+    console.log(products); // Logger produktdataene til konsollen
 
-  // Function to display products on the website
-  function displayProducts(products) {
-    const section = document.getElementById("products");
-    section.innerHTML = ""; // Clear existing content
-    console.log("Products section found:", section); // Check if the section is correctly identified
+    // Henter 'products' section-elementet fra din HTML-side
 
-    // Loop through each product and create HTML for it
+    const productsSection = document.getElementById("products");
+    productsSection.innerHTML = ""; // Tømmer eksisterende innhold for å unngå duplikater
+
     products.forEach((product) => {
-      const productDiv = document.createElement("div");
-      const productName = document.createElement("h2");
-      const productDescription = document.createElement("p");
+      // Lager HTML-elementer for hvert produkt
 
-      productName.textContent = product.name; // Set the product name
-      productDescription.textContent = product.description; // Set the product description
+      const productElement = document.createElement("div");
+      productElement.className = "product"; // Gir en klasse for styling
 
-      productDiv.appendChild(productName); // Append the name to the div
-      productDiv.appendChild(productDescription); // Append the description to the div
+      // Sjekker om produktet har en bilde-URL, og setter en standardbilde-URL hvis ikke
 
-      section.appendChild(productDiv); // Append the div to the section
+      const imageUrl = product.image
+        ? product.image
+        : "path/to/default-image.jpg"; // Angi riktig sti til standardbilde
+
+      productElement.innerHTML = `
+        <img src="${imageUrl}" alt="${product.name}" style="width:100%; height:auto;"> <!-- Produktbilde -->
+        <h3>${product.title}</h3> <!-- Viser produktnavn -->
+        
+      `;
+      productsSection.appendChild(productElement); // Legger til hvert nytt produkt i 'products'-seksjonen
     });
+  } catch (error) {
+    console.error("Error displaying products:", error);
+    productsSection.innerHTML = "<p>Error loading products.</p>"; // Viser en feilmelding hvis produkter ikke kan lastes
   }
+}
 
-  // Call the fetchProductsFromAPI function
-  fetchProductsFromAPI()
-    .then((data) => {
-      console.log("Final Data Loaded:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-});
+displayProducts(); // Kaller funksjonen for å vise produktene på siden

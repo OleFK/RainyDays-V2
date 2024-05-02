@@ -18,8 +18,10 @@ async function fetchProductsFromAPI() {
 // Call the fetchProductsFromAPI function
 fetchProductsFromAPI()
   .then((data) => {
-    console.log("Data:", data);
+    /*console.log("Data:", data);*/
   })
   .catch((error) => {
     console.error("Error:", error);
   });
+
+export { fetchProductsFromAPI };
