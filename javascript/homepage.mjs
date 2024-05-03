@@ -21,25 +21,30 @@ export async function fetchProductsFromAPI() {
 
 // homepage.mjs
 
+// homepage.mjs
+
 import { fetchProductsFromAPI } from "./apiFunction.mjs";
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // ES6 destrukturering for å bytte elementer
+  }
+}
 
 async function displayProducts() {
   try {
     const products = await fetchProductsFromAPI();
     console.log(products); // Logger produktdataene til konsollen
 
-    // Henter 'products' section-elementet fra din HTML-side
+    shuffleArray(products); // Blander produktene tilfeldig
 
     const productsSection = document.getElementById("products");
     productsSection.innerHTML = ""; // Tømmer eksisterende innhold for å unngå duplikater
 
     products.forEach((product) => {
-      // Lager HTML-elementer for hvert produkt
-
       const productElement = document.createElement("div");
       productElement.className = "product"; // Gir en klasse for styling
-
-      // Sjekker om produktet har en bilde-URL, og setter en standardbilde-URL hvis ikke
 
       const imageUrl = product.image
         ? product.image
@@ -59,3 +64,10 @@ async function displayProducts() {
 }
 
 displayProducts(); // Kaller funksjonen for å vise produktene på siden
+
+window.addEventListener("load", function () {
+  const loader = document.querySelector(".loader");
+  if (loader) {
+    loader.style.display = "none"; // Skjuler loaderen når siden er lastet
+  }
+});
