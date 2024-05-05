@@ -8,7 +8,7 @@ async function displayProducts(filter = "") {
   try {
     if (allProducts.length === 0) {
       allProducts = await fetchProductsFromAPI();
-      console.log(allProducts);
+      console.log("Fetched products:", allProducts);
     }
 
     const filteredProducts = filter
@@ -34,7 +34,7 @@ async function displayProducts(filter = "") {
 
       productElement.addEventListener("click", () => {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
-        window.location.href = "product-detail.html"; // Navn på detaljsiden
+        window.location.href = "product/index.html"; // Ensure this is the correct path
       });
     });
   } catch (error) {

@@ -148,10 +148,12 @@
 
 #productName,
 #productDescription,
+#productColor, /* Oppdatert for å inkludere farge */
 #productPrice {
   text-align: center;
-  color: #333333;
+  color: #000;
   margin-bottom: 10px;
+  font-family: "Open Sans";
 }
 
 #productName {
@@ -159,7 +161,9 @@
   font-weight: bold;
 }
 
-#productDescription {
+#productDescription,
+#productColor {
+  /* Oppdatert for å inkludere farge */
   font-size: 20px;
 }
 
@@ -203,6 +207,25 @@ label {
   margin: 10px 0;
 }
 
+/* ---CART--- */
+
+/* Stiler for handlekurv-ikonet */
+.shopping-cart-icon {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  margin-left: 50px;
+  font-size: 25px;
+}
+
+.shopping-cart-icon #cart-count {
+  color: #e89a39;
+  padding: 2px 6px;
+  font-size: 0.9rem;
+  position: relative;
+}
+
 /* ---OTHER CSS--- */
 
 .list {
@@ -214,7 +237,7 @@ label {
   position: relative;
   background-image: url("../../assets/images/Values-About.png");
   background-size: cover;
-  padding: 12px 30px;
+  padding: 12px 80px;
   font-family: "Prompt";
   font-weight: 300;
   font-size: 24px;
