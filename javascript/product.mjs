@@ -1,119 +1,36 @@
-/*document.addEventListener("DOMContentLoaded", function () {
-  const product = JSON.parse(localStorage.getItem("selectedProduct"));
-  if (product) {
-    console.log("Produkt lastet:", product);
-
-    // Oppdaterer bilde, navn, beskrivelse og pris
-    const imgElement = document.getElementById("productImage");
-    imgElement.src = product.image || "path/to/default-image.jpg";
-    imgElement.alt = `${product.title} image`;
-    console.log("Bilde-URL:", imgElement.src);
-
-    document.getElementById("productName").textContent = product.title;
-    console.log("Produktnavn satt til:", product.title);
-
-    document.getElementById("productDescription").textContent =
-      product.description;
-    console.log("Produktbeskrivelse satt til:", product.description);
-
-    document.getElementById(
-      "productPrice"
-    ).textContent = `Pris: ${product.price} kr`;
-    console.log("Produktpris satt til:", product.price);
-
-    // Oppdaterer farge hvis tilgjengelig
-    const colorDisplay = document.getElementById("productColor");
-    const colorText = product.baseColor
-      ? `Farge: ${product.baseColor}`
-      : "Farge ikke spesifisert";
-    colorDisplay.textContent = colorText;
-    console.log("Fargeinformasjon satt til:", colorText);
-
-    // Opprette og fylle størrelsesvelgeren
-    const sizeLabel = document.createElement("label");
-    sizeLabel.htmlFor = "sizeSelect";
-    sizeLabel.textContent = "Velg størrelse:";
-    console.log("Størrelsesetikett opprettet.");
-
-    const sizeSelect = document.createElement("select");
-    sizeSelect.id = "sizeSelect";
-    product.sizes.forEach((size) => {
-      const option = document.createElement("option");
-      option.value = size;
-      option.textContent = size;
-      sizeSelect.appendChild(option);
-      console.log("Størrelsesalternativ lagt til:", size);
-    });
-
-    // Legger til størrelsesvelgeren i container
-    const container = document.querySelector(".product-detail-container");
-    container.appendChild(sizeLabel);
-    container.appendChild(sizeSelect);
-    console.log("Størrelsesvelger lagt til i container.");
-
-    // Legger til knapp for å legge produkt i handlekurv
-    const addToCartButton = document.createElement("button");
-    addToCartButton.textContent = "Legg i handlekurv";
-    addToCartButton.onclick = () => addToCart(product);
-    container.appendChild(addToCartButton);
-    console.log("Knapp for å legge produkt i handlekurven lagt til.");
-  } else {
-    console.error("Produktinformasjon er ikke tilgjengelig.");
-    document.querySelector(".product-detail-container").innerHTML =
-      "<p>Produktinformasjon er ikke tilgjengelig.</p>";
-  }
-
-  function addToCart(product) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    console.log("Gjeldende handlekurv før tillegg:", cart);
-
-    const selectedSize = document.getElementById("sizeSelect").value;
-    console.log("Valgt størrelse:", selectedSize);
-
-    const cartItem = { ...product, selectedSize, quantity: 1 };
-    cart.push(cartItem);
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-    console.log("Produkt lagt til i handlekurven:", cartItem);
-
-    alert("Produktet er lagt til i handlekurven!");
-  }
-});
-*/
-
-import { addToCart, updateCartCount } from "./cart.mjs"; // Anta at disse funksjonene er definert og eksportert riktig
+import { addToCart, updateCartCount } from "./cart.mjs"; // Assume these functions are defined and exported correctly
 
 document.addEventListener("DOMContentLoaded", function () {
   const product = JSON.parse(localStorage.getItem("selectedProduct"));
   if (product) {
-    console.log("Produkt lastet:", product);
+    console.log("Product loaded:", product);
 
     const imgElement = document.getElementById("productImage");
     imgElement.src = product.image || "path/to/default-image.jpg";
     imgElement.alt = `${product.title} image`;
-    console.log("Bilde-URL:", imgElement.src);
+    console.log("Image URL:", imgElement.src);
 
     document.getElementById("productName").textContent = product.title;
-    console.log("Produktnavn satt til:", product.title);
+    console.log("Product name set to:", product.title);
     document.getElementById("productDescription").textContent =
       product.description;
-    console.log("Produktbeskrivelse satt til:", product.description);
+    console.log("Product description set to:", product.description);
     document.getElementById(
       "productPrice"
-    ).textContent = `Pris: ${product.price} kr`;
-    console.log("Produktpris satt til:", product.price);
+    ).textContent = `Price: ${product.price} $`;
+    console.log("Product price set to:", product.price);
 
     const colorDisplay = document.getElementById("productColor");
     const colorText = product.baseColor
-      ? `Farge: ${product.baseColor}`
-      : "Farge ikke spesifisert";
+      ? `Color: ${product.baseColor}`
+      : "Color not specified";
     colorDisplay.textContent = colorText;
-    console.log("Fargeinformasjon satt til:", colorText);
+    console.log("Color information set to:", colorText);
 
     const sizeLabel = document.createElement("label");
     sizeLabel.htmlFor = "sizeSelect";
-    sizeLabel.textContent = "Velg størrelse:";
-    console.log("Størrelsesetikett opprettet.");
+    sizeLabel.textContent = "Select size:";
+    console.log("Size label created.");
 
     const sizeSelect = document.createElement("select");
     sizeSelect.id = "sizeSelect";
@@ -122,25 +39,28 @@ document.addEventListener("DOMContentLoaded", function () {
       option.value = size;
       option.textContent = size;
       sizeSelect.appendChild(option);
-      console.log("Størrelsesalternativ lagt til:", size);
+      console.log("Size option added:", size);
     });
 
     const container = document.querySelector(".product-detail-container");
     container.appendChild(sizeLabel);
     container.appendChild(sizeSelect);
-    console.log("Størrelsesvelger lagt til i container.");
+    console.log("Size selector added to container.");
 
     const addToCartButton = document.createElement("button");
-    addToCartButton.textContent = "Legg i handlekurv";
+    addToCartButton.textContent = "Add to Cart";
     addToCartButton.onclick = () => {
       addToCart(product);
-      updateCartCount(); // Oppdaterer antall i handlekurven etter å ha lagt til et produkt
+      updateCartCount(); // Update the cart count after adding a product to the cart
     };
     container.appendChild(addToCartButton);
-    console.log("Knapp for å legge produkt i handlekurven lagt til.");
+    console.log("Button to add product to cart added.");
+
+    // Update the cart count when the page is loaded
+    updateCartCount();
   } else {
-    console.error("Produktinformasjon er ikke tilgjengelig.");
+    console.error("Product information is not available.");
     document.querySelector(".product-detail-container").innerHTML =
-      "<p>Produktinformasjon er ikke tilgjengelig.</p>";
+      "<p>Product information is not available.</p>";
   }
 });

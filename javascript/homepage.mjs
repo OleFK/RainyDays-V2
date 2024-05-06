@@ -1,6 +1,5 @@
-// homepage.mjs
-
 import { fetchProductsFromAPI } from "./apiFunction.mjs";
+import { updateCartCount } from "./cart.mjs";
 
 let allProducts = [];
 
@@ -34,9 +33,12 @@ async function displayProducts(filter = "") {
 
       productElement.addEventListener("click", () => {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
-        window.location.href = "product/index.html"; // Ensure this is the correct path
+        window.location.href = "product/index.html"; // Make sure this is the correct path
       });
     });
+
+    // Update the cart count
+    updateCartCount();
   } catch (error) {
     console.error("Error displaying products:", error);
     productsSection.innerHTML = "<p>Error loading products.</p>";
