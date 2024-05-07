@@ -263,14 +263,15 @@ label {
 
 /* ---CHECKOUT--- */
 
+
 /* Specific section styling */
 .section {
   width: 80%;
   margin: 20px auto;
-  padding: 20px;
   background-color: #fff;
   border: 3px solid #e89a39;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Style for headings */
@@ -316,17 +317,18 @@ button:hover {
 
 /* ---CART-ITEM-CHECKOUT--- */
 
+
 /* Container for alle handlekurv-elementene */
+
 #cart-items {
-  max-width: 400px;
-  margin: 20 auto;
+  max-width: 30%;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px; /* Mykner hjørnene */
+  border-radius: 10px; 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-/* Stil for hvert handlekurv-element */
+ 
 .cart-item {
   padding: 10px 0;
   display: flex;
@@ -337,7 +339,7 @@ button:hover {
 .cart-item img {
   width: 100px;
   height: auto;
-  margin-right: 20px;
+  
 }
 
 .cart-item h4 {
@@ -346,13 +348,11 @@ button:hover {
 }
 
 .cart-item p {
-  margin: 5px 20px 5px 0;
-  color: #555;
+  margin: 5px;
   font-size: 0.9em;
 }
 
 .cart-item button {
-  background-color: #d9534f;
   color: white;
   border: none;
   border-radius: 5px;
@@ -366,6 +366,11 @@ button:hover {
 .cart-item button:hover {
   background-color: #c9302c;
 }
+
+
+
+
+
 
 /* ---OTHER CSS--- */
 
