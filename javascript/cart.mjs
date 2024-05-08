@@ -340,9 +340,11 @@ function displayCartItems() {
   cartItemsContainer.innerHTML = "";
   cart.forEach((item, index) => {
     const itemElement = document.createElement("div");
+    itemElement.id = "item-" + index;
+    itemElement.className = "item"; 
     itemElement.innerHTML = `
                       <img src="${item.image}" alt="${item.name}">
-                      <p>${item.title}</p>
+                      <h4>${item.title}</h4>
                       <p>Quantity: <button class="decrease-item-btn" data-index="${index}">-</button>${item.quantity}<button class="increase-item-btn" data-index="${index}">+</button></p>
                       <p>Price: $${item.price}</p>
                       <p>Size: ${item.size}</p>

@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Size selector added to container.");
 
     const addToCartButton = document.createElement("button");
+    addToCartButton.id = "addButton";
     addToCartButton.textContent = "Add to Cart";
     addToCartButton.onclick = () => {
       addToCart(product);

@@ -53,14 +53,13 @@
 
 #filter-buttons button {
   background-color: #e89a39;
-  border: none;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 50px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 10px 10px;
+  margin: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s;
@@ -75,10 +74,12 @@
 .product-detail-container {
   max-width: 800px;
   margin: 2rem auto;
-  padding: 20px;
+  padding: 50px;
   background-color: #ffffff;
   border: 3px solid #e89a39;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 #productImage {
@@ -95,7 +96,7 @@
 #productPrice {
   text-align: center;
   color: #000;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-family: "Open Sans";
 }
 
@@ -106,7 +107,7 @@
 
 #productDescription,
 #productColor {
-  font-size: 20px;
+  font-size: 12px;
 }
 
 #productPrice {
@@ -115,26 +116,24 @@
   font-weight: bold;
 }
 
-button {
-  padding: 10px 20px;
-  background-color: #e89a39;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: block;
-  width: 200px;
-  margin: 20px auto;
+#addButton {
+padding: 5px 80px;
+background-color: #e89a39;
+color: #fff;
+font-size: 16px;
+margin: 0 auto;
+cursor: pointer;
+transition: background-color 0.3s;
+
 }
 
-button:hover {
+#addButton:hover {
   background-color: #000;
 }
 
 select {
   width: 20%;
-  padding: 8px;
+  padding: 4px;
   margin: 10px auto;
   display: block;
   font-size: 16px;
@@ -145,7 +144,7 @@ select {
 label {
   display: block;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
   margin: 10px 0;
 }
 
@@ -211,6 +210,37 @@ label {
   cursor: pointer;
 }
 
+.decrease-item-btn,
+.increase-item-btn {
+  max-width: 20px;
+  max-height: 20px;
+  padding: 2px;
+  margin: 5px;
+  background-color: #e89a39;
+} 
+
+.item p {
+  font-size: 14px;
+}
+
+.item h4 {
+  font-size: 16px;
+}
+
+.item h4 p {
+  font-family: "Open Sans";
+}
+
+.remove-item-btn, 
+#checkoutButton,
+#closeCartButton {
+  background-color: #e89a39;
+  padding: 5px 80px;
+  color: #fff;
+  font-size: 10px;
+}
+
+
 /* ---CHECKOUT--- */
 
 /* Specific section styling */
@@ -253,7 +283,7 @@ label {
 /* Container for alle handlekurv-elementene */
 
 #cart-items {
-  max-width: 30%;
+  max-width: 60%;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -282,15 +312,20 @@ label {
   font-size: 0.9em;
 }
 
+.cart-item p h4 {
+  font-family: "Open Sans";
+}
+
+
+
 .cart-item button {
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 20px auto;
+  background-color: #e89a39;
+  padding: 5px 80px;
+  color: #fff;
+  font-size: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
-  font-size: 16px;
+  font-size: 10px;
 }
 
 .cart-item button:hover {
