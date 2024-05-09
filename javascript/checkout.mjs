@@ -1,8 +1,19 @@
-/* Legge til en funksjon med rediger handlevogn, totalsum, riktig størrelse */
-
+import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
-  displayCartItems();
+  showLoadingIndicator();
+
+  try {
+    displayCartItems();
+    attachFormHandler();
+
+    setTimeout(() => {
+      hideLoadingIndicator();
+    }, 100);
+  } catch (error) {
+    console.error("Error displaying cart items:", error);
+    hideLoadingIndicator();
+  }
 });
 
 function displayCartItems() {
@@ -13,28 +24,28 @@ function displayCartItems() {
   }
 
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-  console.log("Loaded cart items:", cartItems);
-
   if (cartItems.length === 0) {
     cartContainer.innerHTML = "<p>Your cart is empty.</p>";
     return;
   }
 
-  let total = 0; // Initialiserer totalen som 0
-  const itemsHtml = cartItems.map(item => {
-    total += item.price * item.quantity; // Legger til produktets totalpris til totalen
-    return `
+  let total = 0;
+  const itemsHtml = cartItems
+    .map((item) => {
+      total += item.price * item.quantity;
+      return `
       <div class="cart-item">
         <img src="${item.image}" alt="${item.title}" style="width:100px; height:auto;">
         <h4>${item.title}</h4>
         <p>Description: ${item.description}</p>
         <p>Color: ${item.baseColor}</p>
-        <p>Size: ${item.sizes.join(', ')}</p>
+        <p>Size: ${item.size}</p>
         <p>Price: $${item.price}</p>
         <p>Quantity: ${item.quantity}</p>
       </div>
     `;
-  }).join("");
+    })
+    .join("");
 
   const checkoutHtml = `
     <div class="info-payment-container">
@@ -63,9 +74,60 @@ function displayCartItems() {
     <div class="total-section">
       <h3>Total Amount: $${total.toFixed(2)}</h3>
     </div>
-    <button type="submit">Place Order</button>
+    <button type="submit" id="place-order">Place Order</button>
   `;
 
   cartContainer.innerHTML = `<div>${itemsHtml}</div><form id="checkout-form" class="checkout-form">${checkoutHtml}</form>`;
 }
 
+function attachFormHandler() {
+  const form = document.getElementById("checkout-form");
+  if (form) {
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      saveOrderDetails();
+    });
+  }
+}
+
+function saveOrderDetails() {
+  const firstName = document.getElementById("first-name").value;
+  const lastName = document.getElementById("last-name").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const country = document.getElementById("country").value;
+  const address = document.getElementById("address").value;
+  const zip = document.getElementById("zip").value;
+  const city = document.getElementById("city").value;
+  const cardNumber = document.getElementById("card-number").value;
+  const expDate = document.getElementById("exp-date").value;
+  const cvv = document.getElementById("cvv").value;
+  const cardName = document.getElementById("card-name").value;
+  const totalAmount = document
+    .querySelector(".total-section h3")
+    .textContent.split(": ")[1];
+
+  const orderNumber = "ORD202400123";
+  const estimatedDelivery = "2024-06-30";
+
+  const orderDetails = {
+    firstName,
+    lastName,
+    email,
+    phone,
+    country,
+    address,
+    zip,
+    city,
+    cardNumber,
+    expDate,
+    cvv,
+    cardName,
+    totalAmount,
+    orderNumber,
+    estimatedDelivery,
+    date: new Date().toLocaleDateString("no-NO"),
+  };
+  localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+  window.location.href = "confirmation/index.html";
+}

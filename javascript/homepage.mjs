@@ -1,10 +1,13 @@
 import { fetchProductsFromAPI } from "./apiFunction.mjs";
 import { updateCartCount } from "./cart.mjs";
+import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 
 let allProducts = [];
 
 async function displayProducts(filter = "") {
   try {
+    showLoadingIndicator(); // Vis loading-indikator før asynkron operasjon starter
+
     if (allProducts.length === 0) {
       allProducts = await fetchProductsFromAPI();
       console.log("Fetched products:", allProducts);
@@ -33,15 +36,18 @@ async function displayProducts(filter = "") {
 
       productElement.addEventListener("click", () => {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
-        window.location.href = "product/index.html"; // Make sure this is the correct path
+        window.location.href = "product/index.html"; // Sørg for at dette er riktig sti
       });
     });
 
-    // Update the cart count
+    // Oppdater antall produkter i handlekurven
     updateCartCount();
+
+    hideLoadingIndicator(); // Skjul loading-indikator etter at asynkron operasjon er fullført
   } catch (error) {
     console.error("Error displaying products:", error);
     productsSection.innerHTML = "<p>Error loading products.</p>";
+    hideLoadingIndicator(); // Sørg for å skjule loading-indikatoren ved feil
   }
 }
 
@@ -57,8 +63,4 @@ document
 
 window.addEventListener("load", function () {
   displayProducts();
-  const loader = document.querySelector(".loader");
-  if (loader) {
-    loader.style.display = "none";
-  }
 });
