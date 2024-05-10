@@ -1,6 +1,6 @@
-import { fetchProductsFromAPI } from "/apiFunction.mjs";
-import { updateCartCount } from "/cart.mjs";
-import { showLoadingIndicator, hideLoadingIndicator } from "/loading.mjs";
+import { fetchProductsFromAPI } from "./apiFunction.mjs";
+import { updateCartCount } from "./cart.mjs";
+import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 
 let allProducts = [];
 
