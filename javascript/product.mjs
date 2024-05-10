@@ -1,5 +1,27 @@
+
 import { addToCart, updateCartCount } from "./cart.mjs";
 import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
+
+
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.className = "toast-message"; 
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  
+  setTimeout(() => {
+    toast.classList.add("toast-visible");
+  }, 10); 
+
+  
+  setTimeout(() => {
+    toast.classList.remove("toast-visible");
+    setTimeout(() => {
+      document.body.removeChild(toast);
+    }, 500); 
+  }, 3000);
+}
 
 document.addEventListener("DOMContentLoaded", async function () {
   try {
@@ -23,39 +45,31 @@ document.addEventListener("DOMContentLoaded", async function () {
       imgElement.src = product.image || "path/to/default-image.jpg";
       imgElement.alt = `${product.title} image`;
       container.appendChild(imgElement);
-      console.log("Image URL:", imgElement.src);
 
       const nameElement = document.createElement("h4");
       nameElement.id = "productName";
       nameElement.textContent = product.title;
       container.appendChild(nameElement);
-      console.log("Product name set to:", product.title);
 
       const descriptionElement = document.createElement("p");
       descriptionElement.id = "productDescription";
       descriptionElement.textContent = product.description;
       container.appendChild(descriptionElement);
-      console.log("Product description set to:", product.description);
 
       const priceElement = document.createElement("p");
       priceElement.id = "productPrice";
       priceElement.textContent = `Price: ${product.price} $`;
       container.appendChild(priceElement);
-      console.log("Product price set to:", product.price);
 
       const colorDisplay = document.createElement("p");
       colorDisplay.id = "productColor";
-      colorDisplay.textContent = product.baseColor
-        ? `Color: ${product.baseColor}`
-        : "Color not specified";
+      colorDisplay.textContent = product.baseColor ? `Color: ${product.baseColor}` : "Color not specified";
       container.appendChild(colorDisplay);
-      console.log("Color information set to:", colorDisplay.textContent);
 
       const sizeLabel = document.createElement("label");
       sizeLabel.htmlFor = "sizeSelect";
       sizeLabel.textContent = "Select size:";
       container.appendChild(sizeLabel);
-      console.log("Size label created.");
 
       const sizeSelect = document.createElement("select");
       sizeSelect.id = "sizeSelect";
@@ -64,10 +78,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         option.value = size;
         option.textContent = size;
         sizeSelect.appendChild(option);
-        console.log("Size option added:", size);
       });
       container.appendChild(sizeSelect);
-      console.log("Size selector added to container.");
 
       const addToCartButton = document.createElement("button");
       addToCartButton.id = "addButton";
@@ -81,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         product.size = selectedSize;
         addToCart(product, selectedSize);
         updateCartCount();
-        console.log("Button to add product to cart added.");
+        showToast("Product added to cart!");
         setTimeout(() => {
           console.log("hideLoadingIndicator called");
           hideLoadingIndicator();
@@ -92,17 +104,15 @@ document.addEventListener("DOMContentLoaded", async function () {
       setTimeout(() => {
         console.log("hideLoadingIndicator called");
         hideLoadingIndicator();
-      }, 100);
+      }, 1000);
     } else {
       console.error("Product information is not available.");
-      document.querySelector(".product-detail-container").innerHTML =
-        "<p>Product information is not available.</p>";
+      document.querySelector(".product-detail-container").innerHTML = "<p>Product information is not available.</p>";
       hideLoadingIndicator();
     }
   } catch (error) {
     console.error("Error displaying product:", error);
-    document.querySelector(".product-detail-container").innerHTML =
-      "<p>Error loading product information.</p>";
+    document.querySelector(".product-detail-container").innerHTML = "<p>Error loading product information.</p>";
     hideLoadingIndicator();
   }
 });

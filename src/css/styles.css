@@ -19,11 +19,12 @@
   box-sizing: border-box;
   margin-bottom: 20px;
   padding: 20px;
-  border: 3px solid #e89a39;
+  border: 1px solid #000;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  box-shadow: 7px 5px 7px #e89a39;
 }
 
 .product img {
@@ -35,14 +36,9 @@
 .product h3 {
   margin-bottom: 0;
   font-family: "Open Sans";
-  font-size: 12px;
+  font-size: 10px;
 }
 
-.product p {
-  margin: 5px 0;
-  font-family: "Open Sans";
-  font-size: 12px;
-}
 
 /* ---BUTTON CSS--- */
 
@@ -73,18 +69,18 @@
 /* ---PRODUCT PAGE--- */
 
 .product-detail-container {
-  max-width: 800px;
+  max-width: 500px;
   margin: 2rem auto;
   padding: 50px;
   background-color: #ffffff;
-  border: 3px solid #e89a39;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
 
 #productImage {
-  width: 100%;
+  width: 80%;
   max-width: 400px;
   height: auto;
   display: block;
@@ -146,6 +142,30 @@ label {
   font-size: 20px;
   margin: 10px 0;
 }
+
+
+/* --- TOAST MESSAGE --- */
+
+.toast-message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #e89a39;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.toast-visible {
+  opacity: 1; 
+  transition: opacity 0.5s;
+}
+
+
 
 /* ---CART--- */
 
@@ -305,6 +325,7 @@ label {
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  
 }
 
 .cart-item {
@@ -448,7 +469,7 @@ input[type="tel"] {
 
 #loadingIndicator {
   display: none;
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -460,8 +481,20 @@ input[type="tel"] {
   height: 50px;
   animation: spin 2s linear infinite;
 }
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
 
 /* ---OTHER CSS--- */
+
+.nav {
+  margin-bottom: 100px;
+}
 
 .list {
   width: 100%;
@@ -750,6 +783,7 @@ input[type="tel"] {
   grid-template-rows: repeat(1, 1fr);
   padding: 1rem 1rem 3rem 1rem;
   padding-top: 30px;
+  margin-top: 100px;
 }
 
 .footer-heading {

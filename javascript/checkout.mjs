@@ -1,3 +1,4 @@
+
 import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setTimeout(() => {
       hideLoadingIndicator();
-    }, 100);
+    }, 1000);
   } catch (error) {
     console.error("Error displaying cart items:", error);
     hideLoadingIndicator();
@@ -103,31 +104,20 @@ function saveOrderDetails() {
   const expDate = document.getElementById("exp-date").value;
   const cvv = document.getElementById("cvv").value;
   const cardName = document.getElementById("card-name").value;
-  const totalAmount = document
-    .querySelector(".total-section h3")
-    .textContent.split(": ")[1];
-
-  const orderNumber = "ORD202400123";
-  const estimatedDelivery = "2024-06-30";
+  const totalAmount = document.querySelector(".total-section h3").textContent.split(": $")[1];
 
   const orderDetails = {
-    firstName,
-    lastName,
-    email,
-    phone,
-    country,
-    address,
-    zip,
-    city,
-    cardNumber,
-    expDate,
-    cvv,
-    cardName,
+    firstName, lastName, email, phone,
+    country, address, zip, city,
+    cardNumber, expDate, cvv, cardName,
     totalAmount,
-    orderNumber,
-    estimatedDelivery,
-    date: new Date().toLocaleDateString("no-NO"),
+    orderDate: new Date().toLocaleDateString("no-NO")
   };
+
+  console.log("Order Details:", orderDetails);
   localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
+
+  
   window.location.href = "confirmation/index.html";
 }
+

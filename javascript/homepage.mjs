@@ -6,7 +6,7 @@ let allProducts = [];
 
 async function displayProducts(filter = "") {
   try {
-    showLoadingIndicator(); // Vis loading-indikator før asynkron operasjon starter
+    showLoadingIndicator();
 
     if (allProducts.length === 0) {
       allProducts = await fetchProductsFromAPI();
@@ -36,18 +36,18 @@ async function displayProducts(filter = "") {
 
       productElement.addEventListener("click", () => {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
-        window.location.href = "product/index.html"; // Sørg for at dette er riktig sti
+        window.location.href = "product/index.html"; 
       });
     });
 
-    // Oppdater antall produkter i handlekurven
+    
     updateCartCount();
 
-    hideLoadingIndicator(); // Skjul loading-indikator etter at asynkron operasjon er fullført
+    hideLoadingIndicator(); 
   } catch (error) {
     console.error("Error displaying products:", error);
     productsSection.innerHTML = "<p>Error loading products.</p>";
-    hideLoadingIndicator(); // Sørg for å skjule loading-indikatoren ved feil
+    hideLoadingIndicator(); 
   }
 }
 
