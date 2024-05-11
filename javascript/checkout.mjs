@@ -118,6 +118,6 @@ function saveOrderDetails() {
   localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
 
   
-  window.location.href = "./confirmation/index.html";
+  window.location.href = "/confirmation/index.html";
 }
 
