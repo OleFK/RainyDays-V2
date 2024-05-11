@@ -532,6 +532,7 @@ input[type="tel"] {
   padding: 10px;
   cursor: pointer;
   color: #fff;
+  width: 80%;
 }
 
 .checkout-form button[type="submit"]:hover {
