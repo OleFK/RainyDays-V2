@@ -1,5 +1,5 @@
 
-import { showLoadingIndicator, hideLoadingIndicator } from "../loading.mjs";
+import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 
 document.addEventListener("DOMContentLoaded", () => {
   showLoadingIndicator();
