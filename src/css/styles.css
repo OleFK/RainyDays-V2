@@ -533,6 +533,7 @@ input[type="tel"] {
   cursor: pointer;
   color: #fff;
   width: 80%;
+  margin-top: 30px;
 }
 
 .checkout-form button[type="submit"]:hover {
@@ -541,6 +542,7 @@ input[type="tel"] {
 
 .total-section h3 {
   font-family: "Prompt";
+  margin-top: 30px;
 }
 
 /* ---CONFIRMATION--- */
