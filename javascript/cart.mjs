@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } else if (event.target.classList.contains("decrease-item-btn")) {
           adjustItemQuantity(index, -1);
         } else if (event.target.id === "checkoutButton") {
-          window.location.href = "./checkout/index.html";
+          window.location.href = "../checkout/index.html";
         }
       });
 
