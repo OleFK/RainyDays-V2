@@ -12,22 +12,54 @@
 
   <header>
     <div class="nav">
-        <span class="navigation">
-            <button class="open-list" onclick="document.querySelector('.list').style.display='flex'; document.querySelector('.close-list').style.display='block'">
-                <img class="closeimg" src="./assets/images/hamburger-menu.png" alt="hamburger-menu">
-            </button>
-            <button class="close-list" onclick="document.querySelector('.list').style.display='none'; this.style.display='none'">
-                <img class="closeimg" src="./assets/images/close-icon.png" alt="close-icon">
-            </button>
-            <img src="./assets/images/RainyDays-Logo.png" class="bigimg" alt="RainyDays-Logo">
-            <ul class="list">
-                <li class="nav-element"><a href="index.html">Home</a></li>
-                <li class="nav-element"><a href="Men.jackets.html">Men</a></li>
-                <li class="nav-element"><a href="women.jackets.html">Women</a></li>
-            </ul>
-        </span>
+      <span class="navigation">
+        <button
+          class="open-list"
+          onclick="document.querySelector('.list').style.display='flex'; document.querySelector('.close-list').style.display='block'"
+        >
+          <img
+            class="closeimg"
+            src="./assets/images/hamburger-menu.png"
+            alt="hamburger-menu"
+          />
+        </button>
+        <button
+          class="close-list"
+          onclick="document.querySelector('.list').style.display='none'; this.style.display='none'"
+        >
+          <img
+            class="closeimg"
+            src="./assets/images/close-icon.png"
+            alt="close-icon"
+          />
+        </button>
+        <img
+          src="./assets/images/RainyDays-Logo.png"
+          class="bigimg"
+          alt="RainyDays-Logo"
+        />
+
+        <ul class="list">
+          <li class="nav-element"><a href="index.html">Shop</a></li>
+          <li class="nav-element">
+            <a href="about-us.html">Contact</a>
+          </li>
+
+          <a href="cart.html" class="shopping-cart-icon">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span id="cart-count">0</span>
+          </a>
+          <div id="cartModal" class="cart-modal">
+            <div class="cart-content">
+              <span class="close-modal" id="closeModalButton">&times;</span>
+              <h2>Shopping Cart</h2>
+              <div id="cartItems"></div>
+            </div>
+          </div>
+        </ul>
+      </span>
     </div>
-</header>
+  </header>
 
 <main>
 
