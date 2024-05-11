@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function openCartModal() {
-  if (!window.location.pathname.includes("checkout,confirmation")) {
+  if (!window.location.pathname.includes("checkout") && !window.location.pathname.includes("confirmation")) {
     document.getElementById("cartModal").style.display = "flex";
     updateCartCount();
     displayCartItems();
