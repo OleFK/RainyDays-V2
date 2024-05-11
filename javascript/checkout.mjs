@@ -1,27 +1,30 @@
-
 import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 
+// Listen for when the DOM is fully loaded to execute the contained functions.
 document.addEventListener("DOMContentLoaded", () => {
+  // Show the loading indicator upon start.
   showLoadingIndicator();
 
   try {
+    // Display cart items and attach the form handler for submissions.
     displayCartItems();
     attachFormHandler();
 
+    // Schedule the hiding of the loading indicator after a one-second delay.
     setTimeout(() => {
       hideLoadingIndicator();
     }, 1000);
   } catch (error) {
-    console.error("Error displaying cart items:", error);
+    // Hide the loading indicator if an error occurs during the operations.
     hideLoadingIndicator();
   }
 });
 
+// Function to display cart items from local storage.
 function displayCartItems() {
   const cartContainer = document.getElementById("cart-items");
   if (!cartContainer) {
-    console.error("The cart container element is missing in the HTML.");
-    return;
+    return; // Exit function if the cart container is not found.
   }
 
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -31,10 +34,9 @@ function displayCartItems() {
   }
 
   let total = 0;
-  const itemsHtml = cartItems
-    .map((item) => {
-      total += item.price * item.quantity;
-      return `
+  const itemsHtml = cartItems.map((item) => {
+    total += item.price * item.quantity;
+    return `
       <div class="cart-item">
         <img src="${item.image}" alt="${item.title}" style="width:100px; height:auto;">
         <h4>${item.title}</h4>
@@ -45,9 +47,9 @@ function displayCartItems() {
         <p>Quantity: ${item.quantity}</p>
       </div>
     `;
-    })
-    .join("");
+  }).join("");
 
+  // HTML for the checkout form including contact, delivery, and payment sections.
   const checkoutHtml = `
     <div class="info-payment-container">
       <div class="info-section">
@@ -64,60 +66,55 @@ function displayCartItems() {
         <input type="text" id="zip" placeholder="Postal Code" required autocomplete="postal-code">
         <input type="text" id="city" placeholder="City" required autocomplete="address-level2">
       </div>
-    </div>
-    <div class="payment-section">
-      <h3>Payment Details</h3>
-      <input type="text" id="card-number" placeholder="Card Number" required autocomplete="cc-number">
-      <input type="text" id="exp-date" placeholder="Expiration Date (MM/YY)" required autocomplete="cc-exp">
-      <input type="text" id="cvv" placeholder="Security Code" required autocomplete="cc-csc">
-      <input type="text" id="card-name" placeholder="Name on Card" required autocomplete="cc-name">
-    </div>
-    <div class="total-section">
-      <h3>Total Amount: $${total.toFixed(2)}</h3>
-    </div>
-    <button type="submit" id="place-order">Place Order</button>
+      <div class="payment-section">
+        <h3>Payment Details</h3>
+        <input type="text" id="card-number" placeholder="Card Number" required autocomplete="cc-number">
+        <input type="text" id="exp-date" placeholder="Expiration Date (MM/YY)" required autocomplete="cc-exp">
+        <input type="text" id="cvv" placeholder="Security Code" required autocomplete="cc-csc">
+        <input type="text" id="card-name" placeholder="Name on Card" required autocomplete="cc-name">
+      </div>
+      <div class="total-section">
+        <h3>Total Amount: $${total.toFixed(2)}</h3>
+      </div>
+      <button type="submit" id="place-order">Place Order</button>
   `;
 
   cartContainer.innerHTML = `<div>${itemsHtml}</div><form id="checkout-form" class="checkout-form">${checkoutHtml}</form>`;
 }
 
+// Attach an event handler to the checkout form to handle the submit event.
 function attachFormHandler() {
   const form = document.getElementById("checkout-form");
   if (form) {
     form.addEventListener("submit", function (event) {
-      event.preventDefault();
+      event.preventDefault(); // Prevents default form submission.
       saveOrderDetails();
     });
   }
 }
 
+// Function to collect form data and save order details to local storage.
 function saveOrderDetails() {
-  const firstName = document.getElementById("first-name").value;
-  const lastName = document.getElementById("last-name").value;
-  const email = document.getElementById("email").value;
-  const phone = document.getElementById("phone").value;
-  const country = document.getElementById("country").value;
-  const address = document.getElementById("address").value;
-  const zip = document.getElementById("zip").value;
-  const city = document.getElementById("city").value;
-  const cardNumber = document.getElementById("card-number").value;
-  const expDate = document.getElementById("exp-date").value;
-  const cvv = document.getElementById("cvv").value;
-  const cardName = document.getElementById("card-name").value;
-  const totalAmount = document.querySelector(".total-section h3").textContent.split(": $")[1];
-
   const orderDetails = {
-    firstName, lastName, email, phone,
-    country, address, zip, city,
-    cardNumber, expDate, cvv, cardName,
-    totalAmount,
+    firstName: document.getElementById("first-name").value,
+    lastName: document.getElementById("last-name").value,
+    email: document.getElementById("email").value,
+    phone: document.getElementById("phone").value,
+    country: document.getElementById("country").value,
+    address: document.getElementById("address").value,
+    zip: document.getElementById("zip").value,
+    city: document.getElementById("city").value,
+    cardNumber: document.getElementById("card-number").value,
+    expDate: document.getElementById("exp-date").value,
+    cvv: document.getElementById("cvv").value,
+    cardName: document.getElementById("card-name").value,
+    totalAmount: document.querySelector(".total-section h3").textContent.split(": $")[1],
     orderDate: new Date().toLocaleDateString("no-NO")
   };
 
-  console.log("Order Details:", orderDetails);
+  // Save the order details in local storage.
   localStorage.setItem("orderDetails", JSON.stringify(orderDetails));
 
-  
+  // Redirect to the order confirmation page.
   window.location.href = "confirmation/index.html";
 }
-

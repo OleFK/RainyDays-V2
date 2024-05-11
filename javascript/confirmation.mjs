@@ -1,22 +1,31 @@
-
 import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 import { openCartModal, closeCartModal } from "./cart.mjs";
 
+// This event listener is triggered once the DOM content has fully loaded.
 document.addEventListener("DOMContentLoaded", () => {
+  // Displays the loading indicator.
   showLoadingIndicator();
 
+  // Retrieves the HTML container element for displaying the order confirmation.
   const confirmationContainer = document.getElementById("confirmation");
-  const cartIcon = document.getElementById("cart-icon"); 
+
+  // Retrieves the cart icon element which triggers the cart modal.
+  const cartIcon = document.getElementById("cart-icon");
+
+  // Retrieves order details from local storage and parses them.
   const orderInfo = JSON.parse(localStorage.getItem("orderDetails"));
-  
-  
+
+  // Sets a default order status.
   const orderStatus = "Processing";
 
+  // Checks if order details exist in local storage.
   if (orderInfo) {
+    // Formats the current date in a localized format.
     const currentDate = new Date().toLocaleDateString("no-NO", {
       year: 'numeric', month: 'long', day: 'numeric'
     });
 
+    // Constructs HTML content for the confirmation page.
     const confirmationHTML = `
         <div class="container">
           <div class="header">
@@ -41,18 +50,24 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
         </div>
       `;
+    // Inserts the confirmation HTML into the container element.
     confirmationContainer.innerHTML = confirmationHTML;
+
+    // Removes the cart contents from local storage.
     localStorage.removeItem("cart");
   } else {
+    // Handles the case where no order details are found.
     confirmationContainer.innerHTML = "<p>An error occurred while retrieving your order information. Please try again or contact customer service.</p>";
   }
 
-  
+  // Adds an event listener to the cart icon for opening the cart modal.
   if (cartIcon) {
     cartIcon.addEventListener('click', function() {
       openCartModal(); 
     });
   }
 
+  // Sets a timer to hide the loading indicator shortly after everything is rendered.
   setTimeout(() => hideLoadingIndicator(), 100);
 });
+

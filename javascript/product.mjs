@@ -1,38 +1,38 @@
-
 import { addToCart, updateCartCount } from "./cart.mjs";
 import { showLoadingIndicator, hideLoadingIndicator } from "./loading.mjs";
 
-
+// Function to display a toast message
 function showToast(message) {
   const toast = document.createElement("div");
-  toast.className = "toast-message"; 
-  toast.textContent = message;
-  document.body.appendChild(toast);
+  toast.className = "toast-message"; // Set the CSS class for styling
+  toast.textContent = message; // Set the text content of the toast
+  document.body.appendChild(toast); // Add the toast to the body
 
-  
+  // Make the toast visible shortly after creation to allow for CSS transition
   setTimeout(() => {
     toast.classList.add("toast-visible");
   }, 10); 
 
-  
+  // Remove the toast after showing it for 3 seconds
   setTimeout(() => {
     toast.classList.remove("toast-visible");
     setTimeout(() => {
-      document.body.removeChild(toast);
+      document.body.removeChild(toast); // Remove toast from DOM after it fades out
     }, 500); 
   }, 3000);
 }
 
+// Event listener for when the DOM content is fully loaded
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    console.log("showLoadingIndicator called");
+    // Display loading indicator and update cart count
     showLoadingIndicator();
     updateCartCount();
 
+    // Retrieve the selected product from local storage
     const product = JSON.parse(localStorage.getItem("selectedProduct"));
     if (product) {
-      console.log("Product loaded:", product);
-
+      // Check for a container element or create one if not present
       let container = document.querySelector(".product-detail-container");
       if (!container) {
         container = document.createElement("div");
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.body.appendChild(container);
       }
 
+      // Create and append elements to display product details
       const imgElement = document.createElement("img");
       imgElement.id = "productImage";
       imgElement.src = product.image || "path/to/default-image.jpg";
@@ -81,6 +82,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       });
       container.appendChild(sizeSelect);
 
+      // Button for adding product to cart
       const addToCartButton = document.createElement("button");
       addToCartButton.id = "addButton";
       addToCartButton.textContent = "Add to Cart";
@@ -94,24 +96,21 @@ document.addEventListener("DOMContentLoaded", async function () {
         addToCart(product, selectedSize);
         updateCartCount();
         showToast("Product added to cart!");
-        setTimeout(() => {
-          console.log("hideLoadingIndicator called");
-          hideLoadingIndicator();
-        }, 2000);
+        hideLoadingIndicator();
       };
       container.appendChild(addToCartButton);
 
+      // Hide the loading indicator after a delay
       setTimeout(() => {
-        console.log("hideLoadingIndicator called");
         hideLoadingIndicator();
       }, 1000);
     } else {
-      console.error("Product information is not available.");
+      // Handle case where product information is not available
       document.querySelector(".product-detail-container").innerHTML = "<p>Product information is not available.</p>";
       hideLoadingIndicator();
     }
   } catch (error) {
-    console.error("Error displaying product:", error);
+    // Handle any other errors in loading product information
     document.querySelector(".product-detail-container").innerHTML = "<p>Error loading product information.</p>";
     hideLoadingIndicator();
   }
