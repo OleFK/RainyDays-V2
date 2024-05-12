@@ -42,18 +42,21 @@ Offer to review two other student's work.
 Make any final changes, and submit for delivery.
 
 Resources
-You have been provided with three options to choose from:
-Rainy Days API - https://docs.noroff.dev/docs/v1/e-commerce/rainy-days
-GameHub API - https://docs.noroff.dev/docs/v1/e-commerce/gamehub
-Square Eyes- https://docs.noroff.dev/docs/v1/e-commerce/square-eyes
-The documentation website for each endpoint explains which options are available on the provided objects. These properties should be used and displayed to the user in your application. You are only required to select one of the endpoints but if you wish to implement more than one that will be accepted.
+You have been provided with three options to choose from: <br>
+Rainy Days API - https://docs.noroff.dev/docs/v1/e-commerce/rainy-days <br>
+GameHub API - https://docs.noroff.dev/docs/v1/e-commerce/gamehub <br>
+Square Eyes- https://docs.noroff.dev/docs/v1/e-commerce/square-eyes <br>
+The documentation website for each endpoint explains which options are available on the provided objects. <br>
+These properties should be used and displayed to the user in your application. <br>
+You are only required to select one of the endpoints but if you wish to implement more than one that will be accepted.
 
 Important Features
 This list is a non-exhaustive list of important things to keep in mind before delivery:
 Errors should be handled for the user, such that they are alerted when something goes wrong like an API call.
 A loading indicator should be shown to the user whenever they are waiting for an asynchronous action to finish.
-There should be no hardcoded product data in your final submission.
-Although the focus on marking is on JavaScript, the site still needs to be accessible and usable for the user. If we cannot access functionality that has been coded, it will be marked as if the coding was not done.
+There should be no hardcoded product data in your final submission. <br>
+Although the focus on marking is on JavaScript, the site still needs to be accessible and usable for the user. <br>
+If we cannot access functionality that has been coded, it will be marked as if the coding was not done.
 Use `async` instead of `then` syntax for asynchronous actions.
 Remove all console.log statements before delivery.
 
